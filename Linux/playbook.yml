@@ -30,5 +30,6 @@
         pycharm_version: 2023.1
         pycharm_install_path: /opt/pycharm
     - role: pipewire
+      become: true
     - role: nerdfonts
     - role: starship
