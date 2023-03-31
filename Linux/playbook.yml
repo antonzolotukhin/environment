@@ -1,0 +1,34 @@
+---
+
+- name: Install prerequisites
+  hosts: localhost
+
+  pre_tasks:
+    - name: Ensure essential packages installed
+      ansible.builtin.apt:
+        name:
+          - ca-certificates
+          - curl
+          - gnupg
+          - python3
+          - python3-pip
+          - git
+          - mc
+          # - ttf-mscorefonts-installer
+        state: present
+      become: true
+
+  roles:
+    - role: mint_release_fix
+    - role: docker
+      vars:
+        docker_user: "{{ ansible_user_id }}"
+        docker_allow_non_root: true
+    - role: pycharm
+      vars:
+        pycharm_edition: professional
+        pycharm_version: 2023.1
+        pycharm_install_path: /opt/pycharm
+    - role: pipewire
+    - role: nerdfonts
+    - role: starship
