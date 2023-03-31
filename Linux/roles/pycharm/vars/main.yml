@@ -1,0 +1,6 @@
+---
+
+pycharm_url:
+  professional: "https://download.jetbrains.com/python/pycharm-professional-{{ pycharm_version }}.tar.gz"
+  community: "https://download.jetbrains.com/python/pycharm-community-{{ pycharm_version }}.tar.gz"
+pycharm_full_path: "{{ pycharm_install_path }}/pycharm{{ (pycharm_edition == 'community') | ternary('-community', '') }}-{{ pycharm_version }}"

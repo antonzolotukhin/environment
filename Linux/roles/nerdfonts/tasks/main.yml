@@ -1,0 +1,20 @@
+---
+
+- name: Ensure .fonts directory exists
+  ansible.builtin.file:
+    path: "~/.fonts/"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0775
+    state: directory
+
+- name: Install font
+  ansible.builtin.unarchive:
+    src: "{{ nerdfont_url }}"
+    dest: ~/.fonts/
+    include: "{{ nerdfont_name }}"
+    remote_src: yes
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0664
+  notify: nerdfont_update

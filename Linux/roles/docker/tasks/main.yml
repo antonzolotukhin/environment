@@ -1,0 +1,8 @@
+---
+
+- name: Install docker
+  include_tasks: install.yml
+
+- name: "Allow non-root access to docker for {{ docker_user }}"
+  include_tasks: allow_non_root.yml
+  when: docker_allow_non_root
