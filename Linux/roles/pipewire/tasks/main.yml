@@ -5,6 +5,8 @@
     name:
       - pipewire-media-session
     state: absent
+  become: true
+
 
 - name: Ensure pipewire packages
   ansible.builtin.apt:
@@ -17,6 +19,7 @@
       - wireplumber
       - pipewire-pulse
     state: present
+  become: true
 
 - name: Ensure pulseaudio disabled and stopped
   ansible.builtin.systemd:
