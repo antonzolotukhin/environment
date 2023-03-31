@@ -1,0 +1,6 @@
+# pycharm edition. may be: community or professional
+pycharm_edition: community
+# pycharm version
+pycharm_version: 2023.1
+# installation path
+pycharm_install_path: /opt/pycharm

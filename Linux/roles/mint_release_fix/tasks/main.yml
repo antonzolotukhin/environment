@@ -1,0 +1,5 @@
+---
+- name: Fix mint release to match Ubuntu
+  ansible.builtin.set_fact:
+    ansible_distribution_release: "{{ mint_release_match[ansible_distribution_release] }}"
+  when: mint_release_match[ansible_distribution_release] is defined

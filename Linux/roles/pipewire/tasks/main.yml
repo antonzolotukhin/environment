@@ -1,0 +1,46 @@
+---
+
+- name: Ensure no pipewire-media-session
+  ansible.builtin.apt:
+    name:
+      - pipewire-media-session
+    state: absent
+
+- name: Ensure pipewire packages
+  ansible.builtin.apt:
+    name:
+      - pipewire
+      - libspa-0.2-bluetooth
+      - libldacbt-enc2
+      - libldacbt-abr2
+      - pipewire-audio-client-libraries
+      - wireplumber
+      - pipewire-pulse
+    state: present
+
+- name: Ensure pulseaudio disabled and stopped
+  ansible.builtin.systemd:
+    daemon_reload: true
+    scope: user
+    state: stopped
+    enabled: false
+    name: "{{item}}"
+  loop:
+    - pulseaudio.service
+    - pulseaudio.socket
+
+- name: Ensure pulseaudio masked
+  ansible.builtin.systemd:
+    scope: user
+    masked: true
+    state: stopped
+    enabled: false
+    name: "pulseaudio"
+
+- name: Ensure pipewire enabled and started
+  ansible.builtin.systemd:
+    scope: user
+    enabled: true
+    masked: false
+    state: started
+    name: wireplumber.service

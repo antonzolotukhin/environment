@@ -1,0 +1,36 @@
+---
+- name: "Create PyCharm directory"
+  ansible.builtin.file:
+    path: "{{ pycharm_install_path }}"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+  become: true
+
+- name: "Check install dir {{ pycharm_full_path }}"
+  stat:
+    path: "{{ pycharm_full_path }}"
+  changed_when: false
+  register: pycharm_full_path_check
+
+- name: "Install PyCharm {{ pycharm_edition }}"
+  ansible.builtin.unarchive:
+    src: "{{ pycharm_url[pycharm_edition] }}"
+    dest: "{{ pycharm_install_path }}"
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+  become: true
+  when: not pycharm_full_path_check.stat.exists
+
+- name: "Create a symbolic link to PyCharm {{ pycharm_edition }} binary"
+  ansible.builtin.file:
+    src: "{{ pycharm_full_path }}/bin/pycharm.sh"
+    dest: /usr/local/bin/pycharm
+    owner: root
+    group: root
+    mode: 0755
+    state: link
+  become: true

@@ -1,0 +1,30 @@
+---
+- name: Create PyCharm directory
+  ansible.builtin.file:
+    path: "~/.local/bin/"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0775
+    state: directory
+
+- name: Install starship
+  ansible.builtin.unarchive:
+    src: "{{ starship_url }}"
+    dest: ~/.local/bin/
+    remote_src: yes
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0775
+
+- name: Configure bashrc
+  ansible.builtin.lineinfile:
+    path: ~/.bashrc
+    line: source <($HOME/.local/bin/starship init bash --print-full-init)
+
+- name: Configure starship prompt
+  ansible.builtin.template:
+    src: starship.toml
+    dest: ~/.config/starship.toml
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0664

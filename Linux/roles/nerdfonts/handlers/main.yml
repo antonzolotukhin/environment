@@ -1,0 +1,5 @@
+---
+
+- name: Update fonts cache
+  listen: nerdfont_update
+  ansible.builtin.command: fc-cache -fv

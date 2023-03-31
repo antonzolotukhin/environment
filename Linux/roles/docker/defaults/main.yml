@@ -1,0 +1,3 @@
+---
+docker_allow_non_root: false
+docker_user: "{{ ansible_user_id }}"
