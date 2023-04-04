@@ -3,6 +3,7 @@
 - name: Add pipewire-upstream
   ansible.builtin.apt_repository:
     repo: "{{ item }}"
+  codename: "{{ ansible_distribution_release }}"
   loop:
     - ppa:pipewire-debian/pipewire-upstream
     - ppa:pipewire-debian/wireplumber-upstream
