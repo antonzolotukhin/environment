@@ -2,9 +2,10 @@
 
 - name: Add pipewire-upstream
   ansible.builtin.apt_repository:
-    repo:
-      - ppa:pipewire-debian/pipewire-upstream
-      - ppa:pipewire-debian/wireplumber-upstream
+    repo: "{{ item }}"
+  loop:
+    - ppa:pipewire-debian/pipewire-upstream
+    - ppa:pipewire-debian/wireplumber-upstream
   become: true
 
 - name: Ensure no pipewire-media-session
