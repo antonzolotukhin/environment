@@ -1,12 +1,18 @@
 ---
 
+- name: Add pipewire-upstream
+  ansible.builtin.apt_repository:
+    repo:
+      - ppa:pipewire-debian/pipewire-upstream
+      - ppa:pipewire-debian/wireplumber-upstream
+  become: true
+
 - name: Ensure no pipewire-media-session
   ansible.builtin.apt:
     name:
       - pipewire-media-session
     state: absent
   become: true
-
 
 - name: Ensure pipewire packages
   ansible.builtin.apt:
@@ -15,6 +21,8 @@
       - libspa-0.2-bluetooth
       - libldacbt-enc2
       - libldacbt-abr2
+      - libfreeaptx0
+      - libfdk-aac2
       - pipewire-audio-client-libraries
       - wireplumber
       - pipewire-pulse
