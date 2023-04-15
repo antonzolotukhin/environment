@@ -1,5 +1,5 @@
 ---
-- name: Create PyCharm directory
+- name: Create .local/bin directory
   ansible.builtin.file:
     path: "~/.local/bin/"
     owner: "{{ ansible_user_id }}"

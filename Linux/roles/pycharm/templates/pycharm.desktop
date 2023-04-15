@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=PyCharm
+Comment=PyCharm {{pycharm_edition}}
+Categories=Development;IDE
+Exec={{ pycharm_full_path }}/bin/pycharm.sh
+Icon=pycharm
+Terminal=false

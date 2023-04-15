@@ -34,3 +34,13 @@
     mode: 0755
     state: link
   become: true
+
+- name: "Create Desktop file"
+  ansible.builtin.template:
+    src: pycharm.desktop
+    dest: "{{ pycharm_full_path }}/pycharm.desktop"
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+  notify: Install desktop file

@@ -1,0 +1,7 @@
+---
+
+- name: Install desktop file
+  ansible.builtin.shell: |
+    desktop-file-install --dir=/usr/local/share/applications "{{ pycharm_full_path }}/pycharm.desktop"
+    update-desktop-database /usr/local/share/applications
+  become: true
