@@ -29,6 +29,7 @@
         pycharm_edition: professional
         pycharm_version: 2023.1
         pycharm_install_path: /opt/pycharm
+    - role: tlp
     - role: pipewire
     - role: nerdfonts
     - role: starship

@@ -1,0 +1,40 @@
+---
+
+- name: Add TLPUI PPA
+  ansible.builtin.apt_repository:
+    repo: "ppa:linuxuprising/apps"
+    codename: "{{ ansible_distribution_release }}"
+  become: true
+
+- name: Ensure tlp packages
+  ansible.builtin.apt:
+    name:
+      - smartmontools
+      - acpi-call
+      - acpi-call-dkms
+      - tp-smapi-dkms
+      - tlp
+      - tlp-rdw
+      - tlpui
+    state: present
+  become: true
+
+- name: Ensure tlp service enabled and run
+  ansible.builtin.systemd:
+    daemon_reload: true
+    state: started
+    enabled: true
+    name: tlp
+  become: true
+
+- name: Configure tlp
+  ansible.builtin.lineinfile:
+    line: "{{ item }}"
+    path: /etc/tlp.conf
+  become: true
+  loop:
+    - DISK_APM_LEVEL_ON_AC="255 255"
+    - DISK_APM_LEVEL_ON_BAT="255 255"
+    - USB_AUTOSUSPEND=0
+    - DEVICES_TO_ENABLE_ON_UNDOCK="wifi"
+  notify: Restart TLP
